@@ -1,0 +1,46 @@
+name: Copilot Setup Steps
+
+# Validate this workflow when it changes, and allow manual runs from the Actions tab.
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - .github/workflows/copilot-setup-steps.yml
+      - .ruby-version
+      - Gemfile
+      - Gemfile.lock
+  pull_request:
+    paths:
+      - .github/workflows/copilot-setup-steps.yml
+      - .ruby-version
+      - Gemfile
+      - Gemfile.lock
+
+jobs:
+  # The job name must be exactly `copilot-setup-steps` for Copilot cloud agent.
+  copilot-setup-steps:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    permissions:
+      contents: read
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v6
+
+      - name: Install system packages for Rails and SQLite
+        run: |
+          sudo apt-get update
+          sudo apt-get install --no-install-recommends -y libsqlite3-dev pkg-config
+
+      - name: Set up Ruby from .ruby-version
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: .ruby-version
+          bundler-cache: true
+
+      - name: Prepare application for Copilot
+        env:
+          RAILS_ENV: test
+        run: bin/setup --skip-server
