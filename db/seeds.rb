@@ -7,3 +7,7 @@
 #   ["Action", "Comedy", "Drama", "Horror"].each do |genre_name|
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
+
+Todo.create!(title: "Rails で Inertia.js を試す", completed: true)
+Todo.create!(title: "Vue 3 コンポーネントを作成する", completed: false)
+Todo.create!(title: "TODO アプリを完成させる", completed: false)
