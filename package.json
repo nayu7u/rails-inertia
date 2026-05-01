@@ -5,7 +5,7 @@
     "esbuild": "^0.28.0"
   },
   "scripts": {
-    "build": "esbuild app/javascript/application.jsx --bundle --sourcemap --format=esm --outdir=app/assets/builds --public-path=/assets"
+    "build": "esbuild app/javascript/application.jsx --bundle --sourcemap --format=esm --jsx=automatic --outdir=app/assets/builds --public-path=/assets"
   },
   "dependencies": {
     "@inertiajs/react": "^3.0.3",
